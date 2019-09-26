@@ -28,14 +28,11 @@ def busnum(request):
         data_json = json.loads(request.body)
         try:
             data = {}
-            route = SiteRoute.objects.filter(busid = data_json["busid"])
+            route = Route.objects.filter(busid = data_json["busid"])
             if route.count() == 0:
                 return HttpResponse("Did not find the corresponding information.")
             else:
-                te = []
-                for temp in route.values("stationname"):
-                    te.append(temp["stationname"])
-                data[data_json["busid"]] = list(te)
+                data[data_json["busid"]] = list(str(route[0].route).split("/"))
                 data = json.dumps(data)
                 return HttpResponse(data)
         except(KeyError,SiteRoute.DoesNotExist):
