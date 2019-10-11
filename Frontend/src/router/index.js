@@ -13,7 +13,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'news',
-        name: 'News',
+        name: 'news',
         component: () => import('@/views/news/index'),
         meta: { title: '新闻', icon: 'message' }
       }
@@ -25,7 +25,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        name: 'Form',
+        name: 'bus',
         component: () => import('@/views/bus/index'),
         meta: { title: '公交线路查询', icon: 'dashboard' }
       }
@@ -37,7 +37,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'index',
-        name: 'Form',
+        name: 'route',
         component: () => import('@/views/route/index'),
         meta: { title: '乘车线路查询', icon: 'drag' }
       }

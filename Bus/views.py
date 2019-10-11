@@ -81,22 +81,24 @@ def SearchRoute(request):
 
 def SearchBus(request):
     if request.method == "POST":
-        data_json = json.loads(request.body)
-    try:
-        staname = data_json["stationname"]
-        result = SiteRoute.objects.filter(stationname=staname).values("busid")
-        if result.count() == 0:
-            return HttpResponse("站点不存在")
-        else:
-            temp = []
-            for i in result:
-                temp.append(i.get("busid"))
-            data = {}
-            data["passid"] = list(temp)
-            data = json.dumps(data)
-            return HttpResponse(data)
-    except(KeyError):
-        return HttpResponse("error")
+        try:
+            data_json = json.loads(request.body)
+            staname = data_json["stationname"]
+            result = SiteRoute.objects.filter(stationname=staname).values("busid")
+            if result.count() == 0:
+                return HttpResponse("站点不存在")
+            else:
+                temp = []
+                for i in result:
+                    temp.append(i.get("busid"))
+                data = {}
+                data["passid"] = list(temp)
+                data = json.dumps(data)
+                return HttpResponse(data)
+        except(KeyError):
+            return HttpResponse("error")
+    else:
+        return HttpResponse("Please send the request in POST.")
 
 
 
