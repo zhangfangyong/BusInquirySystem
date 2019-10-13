@@ -1,9 +1,16 @@
 <template>
-  <div>
-    <div>{{ JSON.stringify(news) }}</div>
-    <div>{{ JSON.stringify(busRoute) }}</div>
-    <div>{{ JSON.stringify(routeInfo) }}</div>
-    <div>{{ JSON.stringify(busInfo) }}</div>
+  <div class="app-container">
+    <el-carousel height="150px">
+      <el-carousel-item v-for="item in news" :key="item">
+        <div class="notify">
+          <div>公交新闻</div>
+          <br>
+          <div>标题： {{ item.title }}</div>
+          <div>内容： {{ item.content }}</div>
+          <div>时间： {{ item.time }}</div>
+        </div>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
@@ -18,11 +25,32 @@ export default {
   },
   mounted() {
     store.dispatch('api/getNews')
-    store.dispatch('api/getBusRoute', 'R1')
-    store.dispatch('api/searchRoute', { startid: 'S1', endid: 'S5' })
-    store.dispatch('api/searchBus', 'S2')
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+
+.notify {
+  /* margin-left: 20%;
+  padding-top: 50px */
+  margin-top: 25px;
+  text-align: center;
+  /* font-size: 20px; */
+}
+</style>
